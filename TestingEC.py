@@ -11,7 +11,7 @@ import random
 POP_SIZE = 500
 
 #TARGET: Our goal.
-TARGET = st.text_input("Enter your name")
+TARGET = st.text_input("Enter your name", "Fathi")
 
 #GENES: Options from which our population would be created.
 GENES = ' abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ'
