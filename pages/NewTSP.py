@@ -132,11 +132,8 @@ def crossover(parent_1, parent_2):
 
 offspring_1 = parent_1[0:cut]
     offspring_1 += [city for city in parent_2 if city not in offspring_1]
-
-
     offspring_2 = parent_2[0:cut]
     offspring_2 += [city for city in parent_1 if city not in offspring_2]
-
 
     return offspring_1, offspring_2
 
@@ -199,6 +196,8 @@ def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_pe
     for i in best_fitness_indices:
         best_mixed_offspring.append(mixed_offspring[i])
 
+
+
     for i in range(0, n_generations):
         # if (i%10 == 0):
             # print("Generation: ", i)
@@ -249,7 +248,6 @@ for i in range(0, n_population):
     total_dist_all_individuals.append(total_dist_individual(best_mixed_offspring[i]))
 
 index_minimum = np.argmin(total_dist_all_individuals)
-
 minimum_distance = min(total_dist_all_individuals)
 st.write(minimum_distance)
 
