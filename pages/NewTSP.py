@@ -135,7 +135,7 @@ def crossover(parent_1, parent_2):
     offspring_2 = parent_2[0:cut]
     offspring_2 += [city for city in parent_1 if city not in offspring_2]
 
-return offspring_1, offspring_2
+    return offspring_1, offspring_2
 
 #mutation
 
