@@ -54,7 +54,7 @@ city_coords = dict(zip(cities_names, zip(x, y)))
 # City Icons
 city_icons = {
     "Ipoh": "♕",
-    "Kangar": "♖",
+    "Kota Tinggi": "♖",
     "Alor Setar": "♗",
     "George Town": "♘",
     "Shah Alam": "♙",
@@ -62,7 +62,7 @@ city_icons = {
     "Kuantan": "♚",
     "Kuala Terengganu": "♛",
     "Kota Bharu": "♜",
-    "Bota": "♝"
+    "Segamat": "♝"
 }
 
 # Genetic Algorithm Parameters
