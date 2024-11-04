@@ -3,39 +3,96 @@ from itertools import permutations, combinations
 from random import shuffle
 import random
 import numpy as np
-import statistics
-import pandas as pd
 import seaborn as sns
 import streamlit as st
 
-# User input for city names (separated by commas)
-city_names_input = st.text_input("Enter city names (separated by commas ','):")
-cities_names = [name.strip() for name in city_names_input.split(',')]
+st.title("City Coordinates Input")
+st.write("Enter up to 10 cities with their coordinates (x,y) in range 1-10.")
 
-# Display a text area for entering coordinates (one coordinate pair per line)
-coords_input = st.text_area("Enter city coordinates (x, y) for each city on a new line:")
-coordinates = [tuple(map(float, line.split(','))) for line in coords_input.splitlines()]
+# Default city values
+default_cities = [
+    {"name": "Ipoh", "x": 0, "y": 1},
+    {"name": "Kangar", "x": 3, "y": 2},
+    {"name": "Alor Setar", "x": 6, "y": 1},
+    {"name": "George Town", "x": 7, "y": 4.5},
+    {"name": "Shah Alam", "x": 15, "y": -1},
+    {"name": "Johor Bahru", "x": 10, "y": 2.5},
+    {"name": "Kuantan", "x": 16, "y": 11},
+    {"name": "Kuala Terengganu", "x": 5, "y": 6},
+    {"name": "Kota Bharu", "x": 8, "y": 9},
+    {"name": "Bota", "x": 1.5, "y": 12},
+]
 
-st.button("Create")
+# Variables to store city names and coordinates
+cities_names = []
+x = []
+y = []
 
-# Check if number of cities and coordinates match
-if len(cities_names) != len(coordinates):
-    st.error("The number of cities and coordinates do not match. Please enter the correct number of coordinates.")
-else:
-    # Create dictionary for city coordinates
-    city_coords = dict(zip(cities_names, coordinates))
+# Collect input from the user for each city
+for i, default_city in enumerate(default_cities):
+    # Create 3 columns for each row
+    col1, col2, col3 = st.columns(3)
 
-    # Plotting
-    fig, ax = plt.subplots()
-    colors = sns.color_palette("pastel", len(cities_names))
+    with col1:
+        city_name = st.text_input(f"City {i + 1}", value=default_city["name"])
 
-    for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
-        color = colors[i]
-        ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
-        ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='center')
+    with col2:
+        city_x = st.number_input(f"x-coordinate (City {i + 1})", value=default_city["x"])
 
-    fig.set_size_inches(10, 8)
-    st.pyplot(fig)
+    with col3:
+        city_y = st.number_input(f"y-coordinate (City {i + 1})", value=default_city["y"])
+
+    cities_names.append(city_name)
+    x.append(city_x)
+    y.append(city_y)
+
+st.button("Submit")
+
+# Create dictionary of city coordinates
+city_coords = dict(zip(cities_names, zip(x, y)))
+
+# City Icons
+city_icons = {
+    "Ipoh": "♕",
+    "Kangar": "♖",
+    "Alor Setar": "♗",
+    "George Town": "♘",
+    "Shah Alam": "♙",
+    "Johor Bahru": "♔",
+    "Kuantan": "♚",
+    "Kuala Terengganu": "♛",
+    "Kota Bharu": "♜",
+    "Bota": "♝"
+}
+
+# Genetic Algorithm Parameters
+n_population = 250
+crossover_per = 0.8
+mutation_per = 0.2
+n_generations = 200
+
+# Pastel color palette
+colors = sns.color_palette("pastel", len(cities_names))
+
+# Plot the cities with icons and annotations
+fig, ax = plt.subplots()
+ax.grid(False)  # Disable grid
+
+for i, (city, (city_x, city_y)) in enumerate(city_coords.items()):
+    color = colors[i]
+    icon = city_icons.get(city, "⬤")  # Default icon if city name is not in city_icons
+    ax.scatter(city_x, city_y, c=[color], s=1200, zorder=2)
+    ax.annotate(icon, (city_x, city_y), fontsize=40, ha='center', va='center', zorder=3)
+    ax.annotate(city, (city_x, city_y), fontsize=12, ha='center', va='bottom', xytext=(0, -30),
+                textcoords='offset points')
+
+    # Connect cities with opaque lines
+    for j, (other_city, (other_x, other_y)) in enumerate(city_coords.items()):
+        if i != j:
+            ax.plot([city_x, other_x], [city_y, other_y], color='gray', linestyle='-', linewidth=1, alpha=0.1)
+
+fig.set_size_inches(16, 12)
+st.pyplot(fig)
 
 #population
 def initial_population(cities_list, n_population = 250):
@@ -132,8 +189,11 @@ def crossover(parent_1, parent_2):
 
     offspring_1 = parent_1[0:cut]
     offspring_1 += [city for city in parent_2 if city not in offspring_1]
+
+
     offspring_2 = parent_2[0:cut]
     offspring_2 += [city for city in parent_1 if city not in offspring_2]
+
 
     return offspring_1, offspring_2
 
@@ -206,8 +266,7 @@ def run_ga(cities_names, n_population, n_generations, crossover_per, mutation_pe
         parents_list = []
         for i in range(0, int(crossover_per * n_population)):
             parents_list.append(roulette_wheel(best_mixed_offspring, fitness_probs))
-
-        offspring_list = []
+    offspring_list = []
         for i in range(0,len(parents_list), 2):
             offspring_1, offspring_2 = crossover(parents_list[i], parents_list[i+1])
 
@@ -248,6 +307,7 @@ for i in range(0, n_population):
     total_dist_all_individuals.append(total_dist_individual(best_mixed_offspring[i]))
 
 index_minimum = np.argmin(total_dist_all_individuals)
+
 minimum_distance = min(total_dist_all_individuals)
 st.write(minimum_distance)
 
