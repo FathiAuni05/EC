@@ -8,6 +8,7 @@ from numpy import pi
 from numpy import meshgrid
 from matplotlib import pyplot
 from mpl_toolkits.mplot3d import Axes3D
+import streamlit as st
 
 # objective function
 def objective(x, y):
@@ -27,7 +28,7 @@ figure = pyplot.figure()
 axis = figure.add_subplot(projection='3d')
 axis.plot_surface(x, y, results, cmap='jet')
 # show the plot
-pyplot.show()
+st.pyplot(figure)
 
 
 # evolution strategy (mu, lambda) of the ackley objective function
