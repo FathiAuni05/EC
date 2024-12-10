@@ -2,8 +2,14 @@ import csv
 import streamlit as st
 import pandas as pd
 
+st.header("Assignment Evolutionary Algorithms ")
+st.title("Parameter Input")
+
 CO_R = st.number_input( "Enter Crossover Rate (Range from 0.0 to 0.95) ")
 MUT_R = st.number_input( "Enter Mutation Rate (Range from 0.01 to 0.05) ")
+
+#Display calculate button
+st.button("Calculate")
 
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
