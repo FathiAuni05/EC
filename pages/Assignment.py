@@ -12,7 +12,7 @@ MUT_R = st.number_input( "Enter Mutation Rate (Range from 0.01 to 0.05) ")
 st.button("Calculate")
 
 #Display selected parameters
-st.write('###Selected Parameters:")
+st.write("###Selected Parameters:")
 st.write('f"-Crossover Rate (CO_R): {C0_R}")
 st.write('f"-Mutation Rate (MUT_R): {MUT_R}")       
 
