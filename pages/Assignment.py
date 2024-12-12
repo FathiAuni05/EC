@@ -13,8 +13,8 @@ st.button("Calculate")
 
 #Display selected parameters
 st.write("###Selected Parameters:")
-st.write('f"-Crossover Rate (CO_R): {C0_R}")
-st.write('f"-Mutation Rate (MUT_R): {MUT_R}")       
+st.write(f"-Crossover Rate (CO_R): {C0_R}")
+st.write(f"-Mutation Rate (MUT_R): {MUT_R}")       
 
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
