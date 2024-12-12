@@ -3,7 +3,7 @@ import streamlit as st
 import pandas as pd
 
 st.title("Assignment Evolutionary Algorithms - Genetic Algorithm")
-st.header("Parameter Input")
+st.write("Parameter Input")
 
 CO_R = st.number_input( "Enter Crossover Rate (Range from 0.0 to 0.95) ")
 MUT_R = st.number_input( "Enter Mutation Rate (Range from 0.01 to 0.05) ")
@@ -162,7 +162,7 @@ schedule_program = {
 }
 schedule_df = pd.DataFrame(schedule_program)
 
-st.write("\nFinal Optimal Schedule:")
+st.write("\n### Final Optimal Schedule:")
 st.table(schedule_df)
 
 st.write("Total Ratings:", f"{fitness_function(final_schedule):.2f}")
