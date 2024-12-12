@@ -9,12 +9,12 @@ CO_R = st.number_input( "Enter Crossover Rate (Range from 0.0 to 0.95) ")
 MUT_R = st.number_input( "Enter Mutation Rate (Range from 0.01 to 0.05) ")
 
 #Display calculate button
-st.button("Calculate")
+st.button("Calculate") 
 
-#Display selected parameters
-st.write("###Selected Parameters:")
-st.write(f"-Crossover Rate (CO_R): {C0_R}")
-st.write(f"-Mutation Rate (MUT_R): {MUT_R}")       
+# Display the resulting parameters used
+st.write("### Parameters Used:")
+st.write(f"Crossover Rate (CO_R): {CO_R}")
+st.write(f"Mutation Rate (MUT_R): {MUT_R}")
 
 # Function to read the CSV file and convert it to the desired format
 def read_csv_to_dict(file_path):
