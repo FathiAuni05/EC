@@ -2,8 +2,8 @@ import csv
 import streamlit as st
 import pandas as pd
 
-st.title("Assignment Evolutionary Algorithms - Genetic Algorithm")
-st.header("TV Scheduling")
+st.title("Assignment Evolutionary Algorithms")
+st.header("TV Scheduling - Genetic Algorithm")
 st.write("### Parameters Input:")
 
 CO_R = st.number_input( "Enter Crossover Rate (Range from 0.0 to 0.95) ")
