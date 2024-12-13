@@ -2,7 +2,7 @@ import csv
 import streamlit as st
 import pandas as pd
 
-st.title("Assignment Evolutionary Algorithms")
+st.title("Assignment")
 st.header("TV Scheduling - Genetic Algorithm")
 st.write("### Parameters Input:")
 
